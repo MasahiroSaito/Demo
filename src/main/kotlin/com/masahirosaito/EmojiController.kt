@@ -5,12 +5,10 @@ import com.google.gson.GsonBuilder
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
-import kotlin.concurrent.thread
 
 @RestController
 class EmojiController {
@@ -28,12 +26,15 @@ class EmojiController {
             @RequestParam text: String = "",
             @RequestParam trigger_word: String = ""
     ): String {
-        return GsonBuilder().setPrettyPrinting().create().toJson(Payload(post()))
+        val payload = Payload("現在の絵文字数: ${getEmojis().emoji.size}")
+        return GsonBuilder().setPrettyPrinting().create().toJson(payload)
     }
 
     data class Payload(val text: String)
 
-//    data class Response(val emoji: Map<String, String>)
+    data class Emojis(val emoji: Map<String, String> = mapOf())
+
+    private fun getEmojis() = Gson().fromJson(post(), Emojis::class.java) ?: Emojis()
 
     private fun post(): String {
         val client = OkHttpClient()
