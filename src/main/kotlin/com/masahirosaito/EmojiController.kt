@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class EmojiController {
 
-    @RequestMapping(value = "/emoji/", method = arrayOf(RequestMethod.POST))
+    @RequestMapping(value = "/emoji", method = arrayOf(RequestMethod.POST))
     fun index(@RequestParam param: String): String {
         return param
     }
