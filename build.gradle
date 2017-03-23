@@ -20,6 +20,8 @@ apply plugin: 'org.springframework.boot'
 
 sourceCompatibility = 1.8
 
+jar.baseName = "Demo"
+
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
