@@ -37,29 +37,31 @@ class EmojiController {
     data class Emojis(val emoji: Map<String, String> = mapOf())
 
     private fun getEmojis(): Emojis {
-        return Gson().fromJson(post(FormBody.Builder()
-                .add("token", "xoxp-91820252256-108563521552-157982807905-62424e2e44665107e4b37afa199b7930")
-                .add("pretty", "1")
+        return Gson().fromJson(post(Request.Builder()
+                .url("https://slack.com/api/emoji.list")
+                .post(FormBody.Builder()
+                        .add("token", "xoxp-91820252256-108563521552-157982807905-62424e2e44665107e4b37afa199b7930")
+                        .add("pretty", "1")
+                        .build())
                 .build()
         ), Emojis::class.java) ?: Emojis()
     }
 
     private fun deleteMessage(ts: String, channel_id: String) {
-        post(FormBody.Builder()
-                .add("token", "xoxp-91820252256-108563521552-157982807905-62424e2e44665107e4b37afa199b7930")
-                .add("ts", ts)
-                .add("channel", channel_id)
-                .add("pretty", "1")
+        post(Request.Builder()
+                .url("https://slack.com/api/chat.delete")
+                .post(FormBody.Builder()
+                        .add("token", "xoxp-91820252256-108563521552-157982807905-62424e2e44665107e4b37afa199b7930")
+                        .add("ts", ts)
+                        .add("channel", channel_id)
+                        .add("pretty", "1")
+                        .build())
                 .build()
         )
     }
 
-    private fun post(body: RequestBody): String {
+    private fun post(request: Request): String {
         val client = OkHttpClient()
-        val request = Request.Builder()
-                .url("https://slack.com/api/emoji.list")
-                .post(body)
-                .build()
         val response = client.newCall(request).execute()
         return response.body().string()
     }
