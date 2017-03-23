@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class EmojiController {
 
+    companion object {
+        val TOKEN = ""
+    }
+
     @RequestMapping(value = "/emoji", method = arrayOf(RequestMethod.POST))
     fun index(
             @RequestParam token: String = "",
@@ -40,7 +44,7 @@ class EmojiController {
         return Gson().fromJson(post(Request.Builder()
                 .url("https://slack.com/api/emoji.list")
                 .post(FormBody.Builder()
-                        .add("token", "xoxp-91820252256-108563521552-157982807905-62424e2e44665107e4b37afa199b7930")
+                        .add("token", TOKEN)
                         .add("pretty", "1")
                         .build())
                 .build()
@@ -51,7 +55,7 @@ class EmojiController {
         post(Request.Builder()
                 .url("https://slack.com/api/chat.delete")
                 .post(FormBody.Builder()
-                        .add("token", "xoxp-91820252256-108563521552-157982807905-62424e2e44665107e4b37afa199b7930")
+                        .add("token", TOKEN)
                         .add("ts", ts)
                         .add("channel", channel_id)
                         .add("pretty", "1")
