@@ -13,8 +13,8 @@ class HelloController {
 //        return "This is Spring Boot Application."
 //    }
 
-    @RequestMapping(value = "/")
-    fun index(): String {
+    @RequestMapping(value = "/", method = arrayOf(RequestMethod.GET))
+    fun index(@RequestParam param: String): String {
         return "Kotlin Spring Boot Application in Heroku."
     }
 }
