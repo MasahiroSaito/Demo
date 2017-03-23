@@ -22,6 +22,6 @@ class EmojiController {
             @RequestParam text: String,
             @RequestParam trigger_word: String
     ): String {
-        return token
+        return "{}"
     }
 }
