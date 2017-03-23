@@ -28,16 +28,12 @@ class EmojiController {
             @RequestParam text: String = "",
             @RequestParam trigger_word: String = ""
     ): String {
-        var response: String = ""
-
-        thread { response = post() }.apply { start() }.join()
-
-        return GsonBuilder().setPrettyPrinting().create().toJson(Payload(response))
+        return GsonBuilder().setPrettyPrinting().create().toJson(Payload(post()))
     }
 
     data class Payload(val text: String)
 
-    data class Response(val emoji: Map<String, String>)
+//    data class Response(val emoji: Map<String, String>)
 
     private fun post(): String {
         val client = OkHttpClient()
