@@ -13,8 +13,6 @@ buildscript {
     }
 }
 
-defaultTasks "clean", "build"
-
 apply plugin: 'kotlin'
 apply plugin: 'kotlin-spring'
 apply plugin: 'eclipse'
@@ -39,4 +37,10 @@ dependencies {
     compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")
     compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+defaultTasks "clean", "build"
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.4'
 }
