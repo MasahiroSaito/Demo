@@ -1,6 +1,6 @@
 package com.masahirosaito
 
-import org.springframework.stereotype.Controller
+import com.google.gson.GsonBuilder
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
@@ -22,6 +22,8 @@ class EmojiController {
             @RequestParam text: String = "",
             @RequestParam trigger_word: String = ""
     ): String {
-        return "{}"
+        return GsonBuilder().setPrettyPrinting().create().toJson(Payload("Hello, World!"))
     }
+
+    data class Payload(val text: String)
 }
